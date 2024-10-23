@@ -64,7 +64,7 @@ then
     install_contour &> /dev/null
 elif [[ ${CI_JOB} =~ operator-* ]]
 then
-    install_contour &> /dev/null
+    install_contour
 elif [[ ${CI_JOB} =~ contour-* || ${CI_JOB} =~ kourier-* ]]
 then
     create_registry_secrets_in_serving &> /dev/null
