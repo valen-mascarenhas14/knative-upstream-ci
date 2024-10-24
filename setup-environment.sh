@@ -24,7 +24,6 @@ while IFS= read -r line; do
 done < "$1"
 
 create_registry_secrets_in_serving(){
-    kubectl create ns knative-serving
     kubectl -n knative-serving create secret generic registry-creds --from-file=config.json=/tmp/config.json
     kubectl -n knative-serving create secret generic registry-certs --from-file=ssl.crt=/tmp/ssl.crt
 }
@@ -54,7 +53,7 @@ install_contour(){
 #------------------------
 
 echo "Setting up access to k8s cluster...."
-
+kubectl create ns knative-serving
 curl --connect-timeout 10 --retry 5 -sL https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml | sed '/.*--metric-resolution.*/a\        - --kubelet-insecure-tls' | kubectl apply -f -
 
 # TODO: merge with patching conditional code below?
