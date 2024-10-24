@@ -43,7 +43,7 @@ install_contour(){
     /tmp/yq_linux_amd64 '. | select(.kind == "CustomResourceDefinition"), select(.kind == "Namespace")' | kubectl apply -f -
 
     # install contour
-    curl --connect-timeout 10 --retry 5 -sL https://raw.githubusercontent.com/knative/serving/release-1.1/third_party/contour-latest/contour.yaml | \
+    curl --connect-timeout 10 --retry 5 -sL https://raw.githubusercontent.com/knative/serving/main/third_party/contour-latest/contour.yaml | \
     sed 's!\(image: \).*docker.io.*!\1'$envoy_replacement'!g' | kubectl apply -f -
     kubectl apply -f https://raw.githubusercontent.com/knative/serving/main/third_party/contour-latest/net-contour.yaml
     echo "Waiting until all pods under contour-external are ready..."
